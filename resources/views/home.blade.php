@@ -2,7 +2,7 @@
 
 @section('content')
 
-<section class="bg-center bg-no-repeat bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg')] bg-gray-700 bg-blend-multiply">
+<section class="bg-center bg-no-repeat bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg')] bg-gray-700 bg-blend-multiply mb-4">
     <div class="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
         <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
             Eco Map Universitas Ahmad Dahlan
@@ -21,7 +21,15 @@
     </div>
 </section>
 
-<div id="map"></div>
+<div class="columns-2">
+    <div id="map"></div>
+    <div>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis beatae voluptate expedita eos, quidem adipisci asperiores sed assumenda nostrum eum? Veritatis nobis quod suscipit assumenda eos voluptas quia voluptatibus nulla obcaecati ratione totam in maxime excepturi vel iusto quisquam tempora mollitia repudiandae facilis alias asperiores error, maiores quaerat! Omnis, aspernatur nobis, accusamus eligendi aperiam quaerat unde iure dignissimos ipsam deleniti sit magnam illum facilis repellendus tempora quibusdam et ex exercitationem inventore. Aliquam, libero. Facilis tempore quisquam fugit explicabo saepe quas consectetur quis eos quo ipsa, animi quidem voluptas ipsam recusandae magnam odio nostrum suscipit veniam incidunt omnis. Ab, illum ipsam?
+        </p>
+    </div>
+
+</div>
 
 @endsection
 
