@@ -6,27 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>EMU - Eco Map UAD</title>
+    <title>EMU - {{ $pageTitle }}</title>
     <link rel="shortcut icon" type="image/png/jpg" href="{{ asset('img/logo-warna.png') }}">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <style>
-        #map {
-            height: 500px;
-        }
-    </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- DataTables --}}
+    @stack('stylesheet')
 </head>
 
 <body>
-    @include('layout/partials/navbar')
+    <header>
+        <x-navbar />
+        @if (request()->is('admin/*'))
+            <x-sidebar />
+        @endif
+    </header>
     <main>
         @yield('content')
+        @stack('modal')
     </main>
+    @if (\Route::is('beranda'))
+        @include('layout/partials/footer')
+    @endif
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/8ed166d714.js" crossorigin="anonymous"></script>
     @stack('scripts')
 </body>
 
