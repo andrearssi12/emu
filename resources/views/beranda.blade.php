@@ -3,7 +3,7 @@
 @section('content')
     <div>
         <section
-            class="h-screen flex bg-center bg-no-repeat bg-cover bg-[url('{{ asset('img/kampus-uad.jpg') }}')] bg-gray-700 bg-blend-multiply">
+            class="h-screen flex bg-center bg-no-repeat bg-cover bg-[url('http://127.0.0.1:8000/img/kampus-uad.jpg')] bg-gray-700 bg-blend-multiply">
             <div class="w-full flex justify-center items-center flex-col">
                 <h1
                     class="text-center mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
