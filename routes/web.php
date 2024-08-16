@@ -3,5 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $data = [
+        'pageTitle' => 'Beranda'
+    ];
+    return view('beranda', $data);
 });
