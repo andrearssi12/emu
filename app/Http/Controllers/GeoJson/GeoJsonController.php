@@ -76,6 +76,7 @@ class GeoJsonController extends Controller
                     'properties' => [
                         'id' => $item->hashed_id,
                         'nama_kampus' => $item->nama_kampus,
+                        'lokasi' => $item->lokasi,
                         'luas' => $item->luas,
                     ],
                 ];

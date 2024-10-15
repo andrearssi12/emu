@@ -192,6 +192,34 @@
                     },
                     'filter': ['!=', ['get', 'id'], id]
                 });
+
+                // Click event for the kampus-now-layer
+                map.on('click', 'kampus-now-layer', (e) => {
+                    const features = map.queryRenderedFeatures(e.point, {
+                        layers: ['kampus-now-layer']
+                    });
+
+                    if (features.length) {
+                        const properties = features[0].properties;
+                        // Create a popup to display properties
+                        new mapboxgl.Popup()
+                            .setLngLat(e.lngLat)
+                            .setHTML(
+                                `<h3>${properties.nama_kampus}</h3><p>${properties.lokasi}</p>`
+                            ) // Customize as needed
+                            .addTo(map);
+                    }
+                });
+
+                // Change cursor to pointer when hovering over the kampus-now-layer
+                map.on('mouseenter', 'kampus-now-layer', () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                // Change cursor back to default when not hovering
+                map.on('mouseleave', 'kampus-now-layer', () => {
+                    map.getCanvas().style.cursor = '';
+                });
             });
         }
     </script>
