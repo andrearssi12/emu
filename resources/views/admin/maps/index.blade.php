@@ -2,7 +2,9 @@
 
 @section('content')
     <div class="p-4 sm:ml-64">
-        <x-breadcrumb :paths="[]" :active="'Maps'" />
+        <x-breadcrumb>
+            <x-breadcrumb.path-active>Maps</x-breadcrumb.path-active>
+        </x-breadcrumb>
         <div class="container mt-4">
             <x-data-tables :headers="['kampus', 'luas', 'map', 'action']" />
         </div>

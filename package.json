@@ -6,12 +6,24 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@mapbox/mapbox-gl-draw": "^1.4.3",
+        "@turf/turf": "^7.1.0",
         "autoprefixer": "^10.4.19",
         "axios": "^1.6.4",
         "flowbite": "^2.3.0",
+        "jquery": "^3.7.1",
         "laravel-vite-plugin": "^1.0",
+        "mapbox-gl": "^3.5.2",
         "postcss": "^8.4.38",
         "tailwindcss": "^3.4.3",
         "vite": "^5.0"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^6.6.0",
+        "@mapbox/mapbox-gl-geocoder": "^5.0.2",
+        "apexcharts": "^3.52.0",
+        "datatables.net-dt": "^2.1.6",
+        "datatables.net-responsive-dt": "^3.0.3",
+        "tw-bootstrap-grid-optimizer": "^1.0.2"
     }
 }

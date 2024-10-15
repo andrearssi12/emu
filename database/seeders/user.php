@@ -16,11 +16,12 @@ class user extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            'username' => 'andrea',
-            'name' => 'andrea rossi',
+            'nama' => 'andrea rossi',
+            'email' => 'andrea.rossi0507@gmail.com',
+            'password' => Hash::make('andrea'),
             'role' => '2',
-            'photo' => 'andrea.png',
-            'password' => Hash::make('andrea')
+            'foto' => 'andrea.png',
+            'status' => '1',
         ]);
     }
 }

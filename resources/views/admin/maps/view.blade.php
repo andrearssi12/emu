@@ -2,15 +2,12 @@
 
 @section('content')
     <div class="p-4 sm:ml-64">
-        <x-breadcrumb :active="'Maps'" />
+        <x-breadcrumb>
+            <x-breadcrumb.path :href="route('maps.index')">Maps</x-breadcrumb.path>
+            <x-breadcrumb.path-active>View</x-breadcrumb.path-active>
+        </x-breadcrumb>
         <div class="container bg-gray-100 py-2 px-3 mt-2 flex rounded-t-md justify-between">
-            <a href="{{ route('maps.create') }}" class="py-2 px-3 inline-flex bg-green-500 rounded-md text-white"><svg
-                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                    <path fill-rule="evenodd"
-                        d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
-                        clip-rule="evenodd" />
-                </svg>
-                Create</a>
+            <x-anchor btnClass="success" :href="route('maps.create')">Create</x-anchor>
             <button class="bg-gray-200 py-2 px-3 rounded-md"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                     fill="currentColor" class="size-6">
                     <path fill-rule="evenodd"

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Kampus;
+use App\Models\KawasanHijau;
+use App\Models\PenggunaanLahan;
 
 class PetaController extends Controller
 {
@@ -13,42 +15,100 @@ class PetaController extends Controller
     {
         $pageTitle = 'Peta';
 
+        $kampus = Kampus::all();
+
         $data = [
-            'pageTitle' => $pageTitle
+            'pageTitle' => $pageTitle,
+            'kampus' => $kampus
         ];
 
         return view('peta', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function getGeoJsonData()
     {
-        //
+        // Dapatkan data dari model
+        $geoDataKampus = Kampus::all();
+        $geoDataKawasanHijau = KawasanHijau::all();
+        $geoDataPenggunaanLahan = PenggunaanLahan::all();
+
+        // Format setiap data menjadi FeatureCollection terpisah
+        $kampusCollection = $this->getKampusFeatureCollection($geoDataKampus);
+        $kawasanHijauCollection = $this->getKawasanHijauFeatureCollection($geoDataKawasanHijau);
+        $penggunaanLahanCollection = $this->getPenggunaanLahanFeatureCollection($geoDataPenggunaanLahan);
+
+        // Gabungkan semua FeatureCollection ke dalam satu array
+        $formattedData = [
+            'kampus' => $kampusCollection,
+            'kawasan_hijau' => $kawasanHijauCollection,
+            'penggunaan_lahan' => $penggunaanLahanCollection,
+        ];
+
+        // Kembalikan response JSON
+        return response()->json($formattedData);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    private function getKampusFeatureCollection($geoDataKampus)
     {
-        //
+        $features = $geoDataKampus->map(function ($data) {
+            return [
+                'type' => 'Feature',
+                'geometry' => json_decode($data->geom, true),
+                'properties' => [
+                    'id' => $data->id,
+                    'name' => $data->nama,
+                    'luas' => $data->luas,
+                    'alamat' => $data->alamat,
+                    'category' => 'kampus'
+                ]
+            ];
+        });
+
+        return [
+            'type' => 'FeatureCollection',
+            'features' => $features
+        ];
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    private function getKawasanHijauFeatureCollection($geoDataKawasanHijau)
     {
-        //
+        $features = $geoDataKawasanHijau->map(function ($data) {
+            return [
+                'type' => 'Feature',
+                'geometry' => json_decode($data->geom, true),
+                'properties' => [
+                    'kampus_id' => $data->kampus->id,
+                    'name' => $data->kampus->nama,
+                    'deskripsi' => $data->deskripsi,
+                    'luas' => $data->luas,
+                    'category' => 'kawasan hijau'
+                ]
+            ];
+        });
+
+        return [
+            'type' => 'FeatureCollection',
+            'features' => $features
+        ];
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    private function getPenggunaanLahanFeatureCollection($geoDataPenggunaanLahan)
     {
-        //
+        $features = $geoDataPenggunaanLahan->map(function ($data) {
+            return [
+                'type' => 'Feature',
+                'geometry' => json_decode($data->geom, true),
+                'properties' => [
+                    'kampus_id' => $data->kampus->id,
+                    'name' => $data->kampus->nama,
+                    'category' => 'penggunaan lahan'
+                ]
+            ];
+        });
+
+        return [
+            'type' => 'FeatureCollection',
+            'features' => $features
+        ];
     }
 }
