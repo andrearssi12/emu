@@ -31,7 +31,7 @@ class LoginController extends Controller
                 ->withProperties(['ip' => $request->ip()])
                 ->log('Login');
 
-            return redirect()->intended('admin');
+            return redirect()->intended('dashboard');
         }
 
         return back()->withErrors([
