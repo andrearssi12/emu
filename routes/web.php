@@ -45,7 +45,7 @@ Route::middleware(['auth', UserAccess::class . ':2'])->group(function () {
         Route::resource('kampus', KampusController::class)->parameters([
             'kampus' => 'kampus'
         ]);
-        Route::post('kawasan/datatables', [KawasanHijauController::class, 'dataTables'])->name('kawasan.datatables');
+        Route::post('kawasan-hijau/datatables', [KawasanHijauController::class, 'dataTables'])->name('kawasan-hijau.datatables');
         Route::resource('kawasan-hijau', KawasanHijauController::class)->parameters([
             'kawasan-hijau' => 'kawasanHijau'
         ]);

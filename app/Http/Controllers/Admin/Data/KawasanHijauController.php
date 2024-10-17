@@ -20,7 +20,7 @@ class KawasanHijauController extends Controller
             'pageTitle' => $pageTitle,
         ];
 
-        return view('admin.kawasan_hijau.index', $data);
+        return view('admin.data.kawasan_hijau.index', $data);
     }
 
     public function dataTables(Request $request)
@@ -65,7 +65,7 @@ class KawasanHijauController extends Controller
             'pageTitle' => $pageTitle,
         ];
 
-        return view('admin.kawasan_hijau.create', $data);
+        return view('admin.data.kawasan_hijau.create', $data);
     }
 
     /**
