@@ -25,6 +25,23 @@ class PetaController extends Controller
         return view('peta', $data);
     }
 
+    /**
+     * Display a listing of the resource.
+     */
+    public function petaKampus()
+    {
+        $pageTitle = 'Peta Kampus';
+
+        $kampus = Kampus::all();
+
+        $data = [
+            'pageTitle' => $pageTitle,
+            'kampus' => $kampus
+        ];
+
+        return view('peta_kampus', $data);
+    }
+
     public function getGeoJsonData()
     {
         // Dapatkan data dari model

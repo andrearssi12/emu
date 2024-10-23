@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\Data\KawasanHijauController;
 use App\Http\Controllers\Admin\Data\PenggunaanLahanController;
 
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
+Route::get('/kampus', [PetaController::class, 'petaKampus'])->name('peta.kampus');
 
 Route::get('/peta', [PetaController::class, 'index'])->name('peta');
 
