@@ -19,7 +19,7 @@ class KawasanHijau extends Model
     protected $table = 'kawasan_hijau';
     protected $fillable = [
         'nama_kawasan',
-        'kampus_id',
+        'id_kampus',
         'geom',
         'luas',
         'jenis_vegetasi',

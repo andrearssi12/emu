@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('penggunaan_lahan', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('kampus_id');
+            $table->unsignedBigInteger('id_kampus');
             $table->string('nama_lahan');
             $table->longText('geom');
             $table->decimal('luas', 10, 2);
-            $table->string('jenis_penggunaan');
             $table->timestamps();
         });
     }

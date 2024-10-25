@@ -26,8 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
-
         // Set up your Hashids instance
         $this->hashids = new Hashids(config('app.key'), 10);
 

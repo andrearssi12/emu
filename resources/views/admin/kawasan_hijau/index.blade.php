@@ -56,9 +56,6 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col">
-                        Nama Kawasan
-                    </th>
-                    <th scope="col">
                         Nama Kampus
                     </th>
                     <th scope="col">
@@ -106,12 +103,6 @@
                 },
             },
             columns: [{
-                    data: 'nama_kawasan',
-                    name: 'nama_kawasan',
-                    defaultContent: '-',
-                    className: 'text-gray-900 dark:text-white font-medium'
-                },
-                {
                     data: 'kampus.nama_kampus',
                     name: 'kampus.nama_kampus',
                     defaultContent: '-'

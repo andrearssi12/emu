@@ -28,22 +28,22 @@ class KawasanHijauController extends Controller
         if ($request->ajax()) {
             $result = KawasanHijau::with('kampus');
             return DataTables::of($result)
-                ->addColumn('action', function ($kampus) {
+                ->addColumn('action', function ($kawasan) {
                     $buttons = [
                         [
                             'type' => 'link',
                             'label' => '<i class="fa-solid fa-eye"></i>',
-                            'url' => route('kampus.show', $kampus->id),
+                            'url' => route('kawasan-hijau.show', $kawasan->hashed_id),
                         ],
                         [
                             'type' => 'link',
                             'label' => '<i class="fa-solid fa-pencil"></i>',
-                            'url' => route('kampus.edit', $kampus->id),
+                            'url' => route('kawasan-hijau.edit', $kawasan->hashed_id),
                         ],
                         [
                             'type' => 'delete',
                             'label' => '<i class="fa-solid fa-trash"></i>',
-                            'url' => route('kampus.destroy', $kampus->id),
+                            'url' => route('kawasan-hijau.destroy', $kawasan->hashed_id),
                             'confirm' => 'Are you sure you want to delete this kampus?',
                         ],
                     ];
