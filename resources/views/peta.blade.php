@@ -46,23 +46,18 @@
 
     <script type="module">
         const map = new mapboxgl.Map({
-            container: 'map', // container ID
-            style: 'mapbox://styles/mapbox/outdoors-v12', // style URL
-            center: [110.38315707889181, -7.8331772109174675], // starting position [lng, lat]
-            zoom: 16 // starting zoom
+            container: 'map',
+            style: 'mapbox://styles/mapbox/outdoors-v12',
+            center: [110.38315707889181, -7.8331772109174675],
+            zoom: 16
         });
 
         const fullScreen = new mapboxgl.FullscreenControl();
         map.addControl(fullScreen, 'top-left');
 
-        // Fetch GeoJSON data
         fetch('/geojsondata')
             .then(response => response.json())
             .then(data => {
-                // const kampusData = data.kampus;
-                // const kawasanHijauData = data.kawasan_hijau;
-                // const penggunaanLahanData = data.penggunaan_lahan;
-
                 initializeMap(data);
             });
 
@@ -89,7 +84,7 @@
                 map.addLayer({
                     'id': 'kawasan-hijau-layer',
                     'type': 'fill',
-                    'source': 'kawasan_hijau',
+                    'source': 'kampus',
                     'layout': {},
                     'paint': {
                         'fill-color': '#0a0',
@@ -101,7 +96,7 @@
                 map.addLayer({
                     'id': 'penggunaan-lahan-layer',
                     'type': 'fill',
-                    'source': 'penggunaan_lahan',
+                    'source': 'kampus',
                     'layout': {},
                     'paint': {
                         'fill-color': '#800',
@@ -114,7 +109,7 @@
             });
         }
 
-        // Function to toggle layer visibility with checkboxes
+        // Function to toggle layer visibility with button-like list items
         function addLayerControl(map) {
             const layers = [{
                     id: 'kampus-layer',
@@ -134,35 +129,40 @@
             menu.innerHTML = ''; // Clear existing content if any
 
             layers.forEach(layer => {
-                // Create checkbox container
-                const container = document.createElement('div');
-                container.classList.add('flex', 'items-center', 'mb-2');
+                // Create button-like item
+                const button = document.createElement('div');
+                button.textContent = layer.name;
+                button.classList.add('cursor-pointer', 'text-white', 'text-center', 'border', 'bg-blue-700',
+                    'font-medium', 'rounded-lg', 'text-sm', 'px-5', 'py-2.5', 'mb-2', 'border-gray-300',
+                    'dark:bg-blue-600', 'dark:border-gray-600'
+                );
 
-                // Create checkbox input
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.id = layer.id;
-                checkbox.classList.add('form-checkbox', 'mr-2', 'text-blue-500', 'dark:text-blue-300');
-                checkbox.checked = true; // Default to checked
+                // Prevent text selection
+                button.style.userSelect = 'none';
 
-                // Create label
-                const label = document.createElement('label');
-                label.htmlFor = layer.id;
-                label.textContent = layer.name;
-                label.classList.add('text-gray-700', 'dark:text-gray-300');
+                // Set initial visibility
+                let isVisible = true;
+                map.setLayoutProperty(layer.id, 'visibility', 'visible');
 
-                // Append checkbox and label to container
-                container.appendChild(checkbox);
-                container.appendChild(label);
-
-                // Append container to menu
-                menu.appendChild(container);
-
-                // Add event listener for checkbox change
-                checkbox.addEventListener('change', () => {
-                    const visibility = checkbox.checked ? 'visible' : 'none';
+                // Add click event to toggle visibility
+                button.addEventListener('click', () => {
+                    isVisible = !isVisible;
+                    const visibility = isVisible ? 'visible' : 'none';
                     map.setLayoutProperty(layer.id, 'visibility', visibility);
+
+                    // Change background and text color based on visibility
+                    if (isVisible) {
+                        button.classList.remove('bg-white', 'text-gray-900', 'dark:bg-gray-800',
+                            'dark:text-white');
+                        button.classList.add('bg-blue-700', 'text-white', 'dark:bg-blue-600');
+                    } else {
+                        button.classList.add('bg-white', 'text-gray-900', 'dark:bg-gray-800',
+                            'dark:text-white');
+                        button.classList.remove('bg-blue-700', 'text-white', 'dark:bg-blue-600');
+                    }
                 });
+
+                menu.appendChild(button);
             });
         }
     </script>

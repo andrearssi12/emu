@@ -26,7 +26,7 @@ class GeoJsonController extends Controller
                     'type' => 'Feature',
                     'geometry' => json_decode($item->geom),
                     'properties' => [
-                        'id' => $item->id,
+                        'id' => $item->hashed_id,
                         'nama_kampus' => $item->nama_kampus,
                         'luas' => $item->luas,
                         'kategori' => 'kampus',
@@ -36,8 +36,7 @@ class GeoJsonController extends Controller
                     'type' => 'Feature',
                     'geometry' => json_decode($item->geom),
                     'properties' => [
-                        'id' => $item->id,
-                        'nama_kawasan' => $item->nama_kawasan,
+                        'id' => $item->hashed_id,
                         'jenis_vegetasi' => $item->jenis_vegetasi,
                         'luas' => $item->luas,
                         'foto' => $item->foto,
@@ -48,9 +47,8 @@ class GeoJsonController extends Controller
                     'type' => 'Feature',
                     'geometry' => json_decode($item->geom),
                     'properties' => [
-                        'id' => $item->id,
+                        'id' => $item->hashed_id,
                         'nama_lahan' => $item->nama_lahan,
-                        'jenis_penggunaan' => $item->jenis_penggunaan,
                         'luas' => $item->luas,
                         'kategori' => 'penggunaan_lahan',
                     ],

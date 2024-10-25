@@ -33,7 +33,7 @@ class KawasanHijau extends Model
 
     public function kampus()
     {
-        return $this->belongsTo(Kampus::class);
+        return $this->hasMany(Kampus::class, 'id', 'id_kampus');
     }
 
     public function laporan()

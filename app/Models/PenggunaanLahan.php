@@ -15,7 +15,6 @@ class PenggunaanLahan extends Model
         'nama_lahan',
         'geom',
         'luas',
-        'jenis_penggunaan'
     ];
 
     public function kampus()
