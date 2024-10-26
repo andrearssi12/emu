@@ -2,13 +2,6 @@
 
 @push('stylesheet')
     @vite('resources/css/map/mapbox-gl.css')
-    <style>
-        .active {
-            font-weight: bold;
-            color: #4A5568;
-            /* Ganti dengan warna yang sesuai */
-        }
-    </style>
 @endpush
 
 @section('content')
@@ -17,15 +10,17 @@
         <div
             class="w-full md:w-1/4 h-full p-3 bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 rounded-md">
             <h3 class="text-l font-bold dark:text-white">Pilih Kampus</h3>
-            <ul class="list-inside list-disc ml-2 dark:text-white">
+            <ul id="kampus-list" class="list-inside ml-2 dark:text-white">
                 @foreach ($kampus as $item)
-                    <li onclick="selectKampus('{{ $item->hashed_id }}', this)"
-                        class="text-sm dark:text-gray-400 cursor-pointer">
-                        {{ $item->nama_kampus }}
+                    <li onclick="selectKampus('{{ $item->hashed_id }}', this)" class="my-2">
+                        <button id="button-{{ $item->hashed_id }}"
+                            class="w-full text-left p-2 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition duration-200">
+                            {{ $item->nama_kampus }}
+                        </button>
                     </li>
                 @endforeach
             </ul>
-            <p class="text-gray-500 mt-2">Pilih pada kampus untuk melihat informasi lebih lanjut.</p>
+            <p id="instruction" class="text-gray-500 mt-2">Pilih pada kampus untuk melihat informasi lebih lanjut.</p>
         </div>
         <div class="w-full md:w-3/4 h-full order-first md:order-none">
             <div id="map" class="w-full h-[400px] md:h-full rounded-md"></div>
@@ -41,20 +36,35 @@
             const map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/outdoors-v12',
-                center: [110.38315707889181, -7.8331772109174675],
+                center: [110.38315707889181, -7.8331772109174675], // Default center
                 zoom: 13
             });
 
             const fullScreen = new mapboxgl.FullscreenControl();
             map.addControl(fullScreen, 'top-left');
 
-            let geojsonData; // Simpan data GeoJSON di sini
+            let geojsonData;
 
             fetch('/geojsonkampus')
                 .then(response => response.json())
                 .then(data => {
-                    geojsonData = data; // Simpan data GeoJSON
+                    geojsonData = data;
                     initializeMap(data);
+
+                    // Focus on campus 4 after loading the map
+                    const campus4 = data.features.find(feature => feature.properties.id === 'Gk9B9EB5dN');
+                    if (campus4) {
+                        const centroid = turf.centroid(campus4);
+                        map.flyTo({
+                            center: centroid.geometry.coordinates,
+                            zoom: 17,
+                            essential: true
+                        });
+
+                        // Set campus 4 button as active
+                        const campus4Button = document.getElementById('button-' + campus4.properties.id);
+                        campus4Button.classList.add('bg-gray-400', 'dark:bg-gray-600'); // Active styles
+                    }
                 });
 
             function initializeMap(data) {
@@ -75,15 +85,14 @@
                         }
                     });
 
-                    // Add markers for each campus at centroid
                     data.features.forEach(feature => {
-                        const centroid = turf.centroid(feature); // Calculate centroid using Turf.js
+                        const centroid = turf.centroid(feature);
 
                         const marker = new mapboxgl.Marker()
                             .setLngLat(centroid.geometry.coordinates)
                             .setPopup(new mapboxgl.Popup().setHTML(
                                 `<strong>${feature.properties.nama_kampus}</strong>`
-                            )) // Set popup content
+                            ))
                             .addTo(map);
                     });
                 });
@@ -101,10 +110,13 @@
                             essential: true
                         });
 
-                        document.querySelectorAll('.list-inside li').forEach(link => {
-                            link.classList.remove('active');
+                        // Remove active styles from all buttons
+                        document.querySelectorAll('.list-inside li button').forEach(button => {
+                            button.classList.remove('bg-gray-400', 'dark:bg-gray-600');
                         });
-                        element.classList.add('active');
+
+                        // Set the clicked button as active
+                        element.querySelector('button').classList.add('bg-gray-400', 'dark:bg-gray-600');
                     }
                 }
             }
