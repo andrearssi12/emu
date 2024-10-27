@@ -134,6 +134,11 @@
                         searchable: false,
                     },
                 ],
+                createdRow: function(row, data, dataIndex) {
+                    $(row).addClass(
+                        'bg-white border-b dark:bg-gray-800 dark:border-gray-700'
+                    );
+                },
             });
         });
     </script>

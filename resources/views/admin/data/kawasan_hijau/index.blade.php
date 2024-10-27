@@ -106,7 +106,7 @@
                         data: 'kampus.nama_kampus',
                         name: 'kampus.nama_kampus',
                         defaultContent: '-',
-                        className: 'text-wrap'
+                        className: 'text-gray-900 dark:text-white font-medium'
                     },
                     {
                         data: 'geom',
@@ -125,6 +125,11 @@
                         searchable: false,
                     },
                 ],
+                createdRow: function(row, data, dataIndex) {
+                    $(row).addClass(
+                        'bg-white border-b dark:bg-gray-800 dark:border-gray-700'
+                    );
+                },
             });
         });
     </script>

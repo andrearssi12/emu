@@ -11,7 +11,7 @@ class PenggunaanLahan extends Model
 
     protected $table = 'penggunaan_lahan';
     protected $fillable = [
-        'kampus_id',
+        'id_kampus',
         'nama_lahan',
         'geom',
         'luas',
@@ -19,6 +19,6 @@ class PenggunaanLahan extends Model
 
     public function kampus()
     {
-        return $this->belongsTo(Kampus::class);
+        return $this->belongsTo(Kampus::class, 'id_kampus', 'id');
     }
 }

@@ -37,7 +37,7 @@ class Kampus extends Model
 
     public function penggunaanLahan()
     {
-        return $this->hasMany(PenggunaanLahan::class);
+        return $this->hasMany(PenggunaanLahan::class, 'id_kampus', 'id');
     }
 
     public function laporan()

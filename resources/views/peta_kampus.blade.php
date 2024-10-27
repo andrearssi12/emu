@@ -51,19 +51,21 @@
                     geojsonData = data;
                     initializeMap(data);
 
-                    // Focus on campus 4 after loading the map
-                    const campus4 = data.features.find(feature => feature.properties.id === 'Gk9B9EB5dN');
-                    if (campus4) {
-                        const centroid = turf.centroid(campus4);
+                    // Dynamically find the first campus to focus on
+                    const firstCampus = data.features[0]; // Change this logic if needed
+                    if (firstCampus) {
+                        const centroid = turf.centroid(firstCampus);
                         map.flyTo({
                             center: centroid.geometry.coordinates,
                             zoom: 17,
                             essential: true
                         });
 
-                        // Set campus 4 button as active
-                        const campus4Button = document.getElementById('button-' + campus4.properties.id);
-                        campus4Button.classList.add('bg-gray-400', 'dark:bg-gray-600'); // Active styles
+                        // Set the first campus button as active
+                        const firstCampusButton = document.getElementById('button-' + firstCampus.properties
+                            .id);
+                        firstCampusButton.classList.remove('bg-gray-200', 'dark:bg-gray-700'); // Active styles
+                        firstCampusButton.classList.add('bg-gray-400', 'dark:bg-gray-600'); // Active styles
                     }
                 });
 
@@ -112,11 +114,13 @@
 
                         // Remove active styles from all buttons
                         document.querySelectorAll('.list-inside li button').forEach(button => {
+                            button.classList.add('bg-gray-200', 'dark:bg-gray-700'); // Active styles
                             button.classList.remove('bg-gray-400', 'dark:bg-gray-600');
                         });
 
                         // Set the clicked button as active
                         element.querySelector('button').classList.add('bg-gray-400', 'dark:bg-gray-600');
+                        element.querySelector('button').classList.remove('bg-gray-200', 'dark:bg-gray-700');
                     }
                 }
             }
