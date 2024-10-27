@@ -15,9 +15,11 @@ class KawasanHijauController extends Controller
     public function index()
     {
         $pageTitle = 'Kawasan Hijau';
+        $result = KawasanHijau::with('kampus');
 
         $data = [
             'pageTitle' => $pageTitle,
+            'result' => $result
         ];
 
         return view('admin.data.kawasan_hijau.index', $data);
@@ -28,6 +30,15 @@ class KawasanHijauController extends Controller
         if ($request->ajax()) {
             $result = KawasanHijau::with('kampus');
             return DataTables::of($result)
+                ->addColumn('id', function ($kawasan) {
+                    return $kawasan->hashed_id; // Menggunakan accessor untuk ID yang di-hash
+                })
+                ->addColumn('id_kampus', function ($kawasan) {
+                    return $kawasan->kampus->hashed_id; // Menggunakan accessor untuk ID yang di-hash
+                })
+                ->addColumn('kampus.id', function ($kawasan) {
+                    return $kawasan->kampus->hashed_id; // Menggunakan accessor untuk ID yang di-hash
+                })
                 ->addColumn('action', function ($kawasan) {
                     $buttons = [
                         [
@@ -43,7 +54,7 @@ class KawasanHijauController extends Controller
                         [
                             'type' => 'delete',
                             'label' => '<i class="fa-solid fa-trash"></i>',
-                            'url' => route('kawasan-hijau.destroy', $kawasan->hashed_id),
+                            'url' => route('kawasan-hijau.delete', $kawasan->hashed_id),
                             'confirm' => 'Are you sure you want to delete this kampus?',
                         ],
                     ];
@@ -132,6 +143,17 @@ class KawasanHijauController extends Controller
         $kawasanHijau->update($request->all());
 
         return redirect()->route('kawasan-hijau.show', $kawasanHijau->id)->with('success', 'Data kawasan hijau berhasil diubah');
+    }
+
+    public function delete(KawasanHijau $kawasanHijau)
+    {
+        $pageTitle = 'Hapus Data Kawasan Hijau';
+        $data = [
+            'pageTitle' => $pageTitle,
+            'kawasanHijau' => $kawasanHijau
+        ];
+
+        return view('admin.data.kawasan_hijau.delete', $data);
     }
 
     /**

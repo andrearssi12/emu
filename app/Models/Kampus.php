@@ -32,7 +32,7 @@ class Kampus extends Model
 
     public function kawasanHijau()
     {
-        return $this->hasMany(KawasanHijau::class, 'id', 'id_kampus');
+        return $this->hasMany(KawasanHijau::class, 'id_kampus', 'id');
     }
 
     public function penggunaanLahan()
