@@ -24,8 +24,7 @@
         <div class="flex flex-col w-full md:w-2/4 h-full space-y-2">
             <div id="map" class="w-full md:h-3/4 h-[300px]"></div>
             <div class="w-full h-1/4 p-3 bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
-                <h3 class="text-l font-bold dark:text-white">Pilih Kampus</h3>
-                <p class="text-gray-500">Klik pada kawasan hijau untuk melihat informasi lebih lanjut.</p>
+                <div class="w-full" id="new-products-chart"></div>
             </div>
         </div>
         <div class="w-full md:w-1/4 h-full p-3 bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700"
@@ -40,6 +39,30 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('new-products-chart')) {
+                var options = {
+                    series: [44, 55, 13, 43, 22],
+                    chart: {
+                        width: 300,
+                        type: 'pie',
+                    },
+                    labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }]
+                };
+
+                var chart = new ApexCharts(document.querySelector("#new-products-chart"), options);
+                chart.render();
+            }
 
             const map = new mapboxgl.Map({
                 container: 'map',
