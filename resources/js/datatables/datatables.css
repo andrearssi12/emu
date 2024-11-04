@@ -1,6 +1,10 @@
 @import "datatables.net-dt/css/dataTables.dataTables.min.css";
 @import "datatables.net-responsive-dt/css/responsive.dataTables.min.css";
 
+div.dt-container.dt-empty-footer tbody > tr:last-child > * {
+    border-bottom: 0;
+}
+
 html.dark .dt-container .dt-search input,
 html.dark .dt-container .dt-length select {
     border: 1px solid rgba(255, 255, 255, 0.2);

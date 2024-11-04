@@ -11,7 +11,6 @@ use App\Http\Controllers\Admin\Data\KampusController;
 use App\Http\Controllers\Admin\Master\UserController;
 use App\Http\Controllers\Admin\Data\KawasanHijauController;
 use App\Http\Controllers\Admin\Data\PenggunaanLahanController;
-use App\Models\KawasanHijau;
 
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 Route::get('/kampus', [PetaController::class, 'petaKampus'])->name('peta.kampus');
@@ -48,10 +47,12 @@ Route::middleware(['auth', UserAccess::class . ':2'])->group(function () {
             'kampus' => 'kampus'
         ]);
         Route::post('kawasan-hijau/datatables', [KawasanHijauController::class, 'dataTables'])->name('kawasan-hijau.datatables');
-        Route::get('kawasan-hijau/{kawasanHijau}/delete', [KawasanHijau::class, 'delete'])->name('kawasan-hijau.delete');
+        Route::get('kawasan-hijau/{kawasanHijau}/delete', [KawasanHijauController::class, 'delete'])->name('kawasan-hijau.delete');
+        Route::get('kawasan-hijau/create', [KawasanHijauController::class, 'prefill'])->name('kawasan-hijau.prefill');
+        Route::get('kawasan-hijau/create/{kampus}', [KawasanHijauController::class, 'create'])->name('kawasan-hijau.create');
         Route::resource('kawasan-hijau', KawasanHijauController::class)->parameters([
             'kawasan-hijau' => 'kawasanHijau'
-        ]);
+        ])->except('create');
         Route::post('penggunaan/datatables', [PenggunaanLahanController::class, 'dataTables'])->name('penggunaan.datatables');
         Route::resource('penggunaan-lahan', PenggunaanLahanController::class)->parameters([
             'penggunaan-lahan' => 'penggunaanLahan'

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Data;
 use App\Models\KawasanHijau;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Kampus;
 use Yajra\DataTables\Facades\DataTables;
 
 class KawasanHijauController extends Controller
@@ -66,14 +67,37 @@ class KawasanHijauController extends Controller
     }
 
     /**
+     * Show the form for prefill a new resource.
+     */
+    public function prefill()
+    {
+        $pageTitle = 'Pilih Kampus';
+
+        $kampus = Kampus::with('kawasanHijau')->get();
+
+        $kampus->each(function ($item) {
+            $item->total_kawasan_hijau = $item->kawasanHijau->count();
+            $item->total_luas_kawasan_hijau = $item->kawasanHijau->sum('luas');
+        });
+
+        $data = [
+            'pageTitle' => $pageTitle,
+            'kampus' => $kampus
+        ];
+
+        return view('admin.data.kawasan_hijau.prefill', $data);
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Kampus $kampus)
     {
         $pageTitle = 'Tambah Kawasan Hijau';
 
         $data = [
             'pageTitle' => $pageTitle,
+            'kampus' => $kampus
         ];
 
         return view('admin.data.kawasan_hijau.create', $data);

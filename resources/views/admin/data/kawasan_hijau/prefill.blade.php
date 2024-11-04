@@ -5,6 +5,7 @@
 @endpush
 
 @section('content')
+    <!-- Breadcrumb -->
     <nav class="flex px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
         aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -43,34 +44,38 @@
         </ol>
     </nav>
 
-    <div
-        class="w-full p-4 my-6 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 dark:border-gray-700 dark:bg-gray-800 xl:mb-0">
-        <div class="flex justify-between mb-5">
-            <h1 class="text-gray-900 dark:text-white font-bold">Tabel Data Kawasan Hijau</h1>
-            <a href="{{ route('kawasan-hijau.prefill') }}"
-                class="py-2 px-3 text-xs text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><i
-                    class="fa-solid fa-plus"></i>
-                Tambah</a>
-        </div>
-
+    <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-4 p-4">
         <div class="w-full">
             <table id="pagination-table" class="text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col">
-                            Kampus
+                        <th class="all" scope="col">
+                            Nama
                         </th>
-                        <th scope="col">
-                            Geometry
+                        <th class="desktop" scope="col">
+                            Jumlah Kawasan Hijau
                         </th>
-                        <th scope="col">
-                            Luas
+                        <th class="desktop" scope="col">
+                            Luas Kawasan Hijau
                         </th>
-                        <th scope="col">
+                        <th class="desktop" scope="col">
                             Aksi
                         </th>
                     </tr>
                 </thead>
+                <tbody>
+                    @foreach ($kampus as $item)
+                        <tr>
+                            <td>{{ $item->nama_kampus }}</td>
+                            <td>{{ $item->total_kawasan_hijau }}</td>
+                            <td>{{ $item->total_luas_kawasan_hijau }}</td>
+                            <td class="p-4">
+                                <a href="{{ route('kawasan-hijau.create', $item->hashed_id) }}"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Pilih</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>
@@ -81,9 +86,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var table = new DataTable('#pagination-table', {
-                serverSide: true,
                 processing: true,
                 responsive: true,
+                autoWidth: false,
                 dom: '<"flex flex-col md:flex-row md:justify-between items-center py-2 space-y-2 md:space-y-0"lf>t<"flex flex-col md:flex-row md:justify-between items-center py-2 space-y-2 md:space-y-0 text-sm"ip>',
                 language: {
                     'search': '',
@@ -95,36 +100,6 @@
                     "infoFiltered": "(disaring dari _MAX_ total data)",
                     "zeroRecords": "Tidak ada data yang cocok dengan pencarian"
                 },
-                ajax: {
-                    url: "{{ route('kawasan-hijau.datatables') }}",
-                    type: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                },
-                columns: [{
-                        data: 'kampus.nama_kampus',
-                        name: 'kampus.nama_kampus',
-                        defaultContent: '-',
-                        className: 'text-gray-900 dark:text-white font-medium'
-                    },
-                    {
-                        data: 'geom',
-                        name: 'geom',
-                        defaultContent: '-',
-                        className: 'text-wrap'
-                    },
-                    {
-                        data: 'luas',
-                        name: 'luas',
-                        defaultContent: '-'
-                    },
-                    {
-                        data: 'action',
-                        orderable: false,
-                        searchable: false,
-                    },
-                ],
                 createdRow: function(row, data, dataIndex) {
                     $(row).addClass(
                         'bg-white border-b dark:bg-gray-800 dark:border-gray-700'
