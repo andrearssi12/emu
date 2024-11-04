@@ -5,12 +5,6 @@ import $ from 'jquery';
 import './pace/pace.min.js';
 import ApexCharts from 'apexcharts';
 
-if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
-    '(prefers-color-scheme: dark)').matches)) {
-document.documentElement.classList.add('dark');
-} else {
-document.documentElement.classList.remove('dark')
-}
 
 window.jQuery = window.$ = $;
 window.axios = axios;

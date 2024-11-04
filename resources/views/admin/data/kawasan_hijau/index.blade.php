@@ -57,13 +57,13 @@
             <table id="pagination-table" class="text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col">
+                        <th scope="col" class="all">
                             Kampus
                         </th>
                         <th scope="col">
                             Geometry
                         </th>
-                        <th scope="col">
+                        <th scope="col" class="all">
                             Luas
                         </th>
                         <th scope="col">
