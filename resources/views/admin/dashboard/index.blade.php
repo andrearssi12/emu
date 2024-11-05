@@ -1,7 +1,6 @@
 @extends('layout.app')
 
 @section('content')
-    <!-- Breadcrumb -->
     <nav class="flex px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
         aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -61,7 +60,7 @@
     <div class="row mt-4 gap-4 md:gap-0">
         <div class="col-12 md:col-6">
             <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <h4 class="mb-4 font-bold tracking-tight text-gray-900 dark:text-white">Data Kawasan Hijau Tiap Kampus
+                <h4 class="mb-4 font-bold tracking-tight text-gray-900 dark:text-white">Total Kawasan Hijau Tiap Kampus
                 </h4>
                 <div class="flex justify-center items-center">
                     <div id="chart"></div>
@@ -70,21 +69,32 @@
         </div>
         <div class="col-12 md:col-6">
             <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
-                        acquisitions 2021</h5>
-                </a>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-                    acquisitions of 2021 so far, in reverse chronological order.</p>
-                <a href="#"
-                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Read more
-                    <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 14 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M1 5h12m0 0L9 1m4 4L9 9" />
-                    </svg>
-                </a>
+                <h4 class="mb-4 font-bold tracking-tight text-gray-900 dark:text-white">Luas Kawasan Hijau Tiap Kampus
+                </h4>
+                <div class="flex justify-center items-center">
+                    <div id="chart2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12 md:col-8">
+            <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <h4 class="mb-4 font-bold tracking-tight text-gray-900 dark:text-white">Luas Kawasan Hijau Tiap Kampus
+                </h4>
+                <div class="flex justify-center items-center">
+                    <div id="chart2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 md:col-4">
+            <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <h4 class="mb-4 font-bold tracking-tight text-gray-900 dark:text-white">Luas Kawasan Hijau Tiap Kampus
+                </h4>
+                <div class="flex justify-center items-center">
+                    <div id="chart2"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -95,13 +105,15 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Function to set chart options based on the theme
             function getChartOptions() {
-                var colors, textColors;
+                var colors, textColors, borderColor;
                 if (document.documentElement.classList.contains('dark')) {
                     colors = ['#FF4560', '#00E396', '#FEB019', '#775DD0', '#546E7A'];
                     textColors = ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF'];
+                    borderColor = '#1f2937';
                 } else {
                     colors = ['#FF4560', '#00E396', '#FEB019', '#775DD0', '#546E7A'];
                     textColors = ['#000000', '#000000', '#000000', '#000000', '#000000'];
+                    borderColor = '#FFFFFF';
                 }
 
                 return {
@@ -112,6 +124,11 @@
                     },
                     labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
                     colors: colors,
+                    stroke: {
+                        show: true,
+                        width: 2,
+                        colors: [borderColor]
+                    },
                     legend: {
                         labels: {
                             colors: textColors // Warna teks legend
@@ -134,11 +151,14 @@
             var options = getChartOptions();
 
             var chart = new ApexCharts(document.querySelector("#chart"), options);
+            var chart2 = new ApexCharts(document.querySelector("#chart2"), options);
             chart.render();
+            chart2.render();
 
             document.addEventListener('dark-mode', function() {
                 options = getChartOptions();
                 chart.updateOptions(options);
+                chart2.updateOptions(options);
             });
         });
     </script>
