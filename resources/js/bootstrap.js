@@ -2,7 +2,6 @@ import axios from 'axios';
 import 'flowbite';
 import './template/dark-mode.js';
 import $ from 'jquery';
-import './pace/pace.min.js';
 import ApexCharts from 'apexcharts';
 
 

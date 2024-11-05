@@ -30,7 +30,7 @@ Route::get('/get-drawn-features', [KampusController::class, 'getDrawnFeatures'])
 
 
 Route::middleware(['auth', UserAccess::class . ':2'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('master')->group(function () {
         Route::post('user/datatables', [UserController::class, 'dataTables'])->name('user.datatables');
