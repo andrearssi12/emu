@@ -1,7 +1,8 @@
-<nav class="fixed z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-    <div class="px-3 py-3 lg:px-5 lg:pl-3">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center justify-start">
+<nav
+    class="w-full fixed z-20 bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-none lg:ml-64 lg:w-[calc(100%-16rem)]">
+    <div class="p-3 lg:px-5 lg:pl-3">
+        <div class="flex items-center justify-between lg:justify-end">
+            <div class="flex items-center justify-start lg:hidden">
                 <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar"
                     class="p-2 text-gray-600 rounded cursor-pointer lg:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 dark:focus:bg-gray-700 focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                     <svg id="toggleSidebarMobileHamburger" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -10,23 +11,9 @@
                             d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
                             clip-rule="evenodd"></path>
                     </svg>
-                    <svg id="toggleSidebarMobileClose" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
                 </button>
-                <a href="{{ route('dashboard') }}" class="flex ml-2 md:mr-24">
-                    <img src="{{ asset('img/logo-putih.png') }}" class="mr-3 h-8 hidden dark:block" alt="EMU Logo" />
-                    <img src="{{ asset('img/logo-hitam.png') }}" class="mr-3 h-8 dark:hidden" alt="EMU Logo" />
-                    <span
-                        class="self-center text-l font-semibold sm:text-xl whitespace-nowrap dark:text-white">EMU</span>
-                </a>
-
             </div>
             <div class="flex items-center">
-
                 <button id="theme-toggle" data-tooltip-target="tooltip-toggle" type="button"
                     class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
                     <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"

@@ -64,13 +64,6 @@
                 chart.render();
             }
 
-            const map = new mapboxgl.Map({
-                container: 'map',
-                style: 'mapbox://styles/mapbox/outdoors-v12',
-                center: [110.38315707889181, -7.8331772109174675],
-                zoom: 16
-            });
-
             const fullScreen = new mapboxgl.FullscreenControl();
             map.addControl(fullScreen, 'top-left');
 
@@ -114,8 +107,8 @@
                         'source': 'kampus',
                         'layout': {},
                         'paint': {
-                            'fill-color': '#088',
-                            'fill-opacity': 0.5
+                            'fill-color': '#cca525',
+                            'fill-opacity': 1
                         },
                         'filter': ['==', ['get', 'kategori'], 'kampus']
                     });
@@ -127,7 +120,7 @@
                         'layout': {},
                         'paint': {
                             'fill-color': '#0a0',
-                            'fill-opacity': 0.5
+                            'fill-opacity': 1
                         },
                         'filter': ['==', ['get', 'kategori'], 'kawasan_hijau']
                     });
@@ -138,8 +131,8 @@
                         'source': 'kampus',
                         'layout': {},
                         'paint': {
-                            'fill-color': '#800',
-                            'fill-opacity': 0.5
+                            'fill-color': '#ebe6d8',
+                            'fill-opacity': 0.9
                         },
                         'filter': ['==', ['get', 'kategori'], 'penggunaan_lahan']
                     });

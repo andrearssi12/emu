@@ -10,10 +10,12 @@
     <link rel="shortcut icon" type="image/png/jpg" href="{{ asset('img/logo-warna.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/template/index.js', 'resources/js/app.js'])
+    @stack('vite')
     @stack('stylesheet')
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-800">
+    <div class="fixed inset-0 z-30 hidden bg-gray-900/50 dark:bg-gray-900/90" id="sidebarBackdrop"></div>
     <header>
         @if (request()->is('admin/*'))
             @include('layout.admin.partials.navbar')
@@ -26,11 +28,9 @@
 
             @include('layout.admin.partials.sidebar')
 
-            <div class="fixed inset-0 z-10 hidden bg-gray-900/50 dark:bg-gray-900/90" id="sidebarBackdrop"></div>
-
             <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
                 <main>
-                    <div class="px-4 pt-6">
+                    <div class="px-4 pt-3">
                         @yield('content')
                     </div>
                 </main>

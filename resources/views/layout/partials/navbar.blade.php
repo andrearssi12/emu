@@ -142,17 +142,22 @@
 </nav>
 <nav class="bg-white dark:bg-gray-800 fixed w-full z-30 top-16">
     <ul id="toggleMobileMenu" class="hidden flex-col w-full text-sm font-medium lg:hidden">
-        <li class="block border-y dark:border-gray-700 dark:bg-gray-900">
-            <a href="#" class="block py-3 px-4 text-gray-900 lg:py-0 dark:text-white lg:hover:underline lg:px-0"
-                aria-current="page">Home</a>
+        <li
+            class="block border-y dark:border-gray-700  {{ \Route::is('beranda') ? 'dark:bg-gray-900' : 'dark:hover:bg-gray-900' }}">
+            <a href="{{ route('beranda') }}"
+                class="block py-3 px-4 text-gray-900 lg:py-0 dark:text-white lg:hover:underline lg:px-0"
+                aria-current="page">Beranda</a>
         </li>
-        <li class="block border-b dark:border-gray-700 dark:hover:bg-gray-900">
-            <a href="#"
-                class="block py-3 px-4 text-gray-900 lg:py-0 dark:text-white lg:hover:underline lg:px-0">Messages</a>
+        <li
+            class="block border-b dark:border-gray-700 {{ \Route::is('peta.kampus') ? 'dark:bg-gray-900' : 'dark:hover:bg-gray-900' }}">
+            <a href="{{ route('peta.kampus') }}"
+                class="block py-3 px-4 text-gray-900 lg:py-0 dark:text-white lg:hover:underline lg:px-0">Kampus</a>
         </li>
-        <li class="block border-b dark:border-gray-700 dark:hover:bg-gray-900">
-            <a href="#"
-                class="block py-3 px-4 text-gray-900 lg:py-0 dark:text-white lg:hover:underline lg:px-0">Profile</a>
+        <li
+            class="block border-b dark:border-gray-700 {{ \Route::is('peta') ? 'dark:bg-gray-900' : 'dark:hover:bg-gray-900' }}">
+            <a href="{{ route('peta') }}"
+                class="block py-3 px-4 text-gray-900 lg:py-0 dark:text-white lg:hover:underline lg:px-0">Kawasan
+                Hijau</a>
         </li>
         <li class="block border-b dark:border-gray-700 dark:hover:bg-gray-900">
             <a href="#"

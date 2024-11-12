@@ -4,6 +4,15 @@ import * as turf from '@turf/turf';
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
+const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/dark-v11',
+    center: [110.38315707889181, -7.8331772109174675],
+    zoom: 16
+});
+
+window.map = map;
+
 const coordinatesGeocoder = function(query) {
     const matches = query.match(
         /^[ ]*(?:Lat: )?(-?\d+\.?\d*)[, ]+(?:Lng: )?(-?\d+\.?\d*)[ ]*$/i

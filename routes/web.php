@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\Data\PenggunaanLahanController;
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 Route::get('/kampus', [PetaController::class, 'petaKampus'])->name('peta.kampus');
 
+Route::get('proporsi-luas-kawasan-hijau', [DashboardController::class, 'proporsiLuasKawasanHijau'])->name('proporsiLuasKawasanHijau');
+
 Route::get('/peta', [PetaController::class, 'index'])->name('peta');
 
 Route::get('/geojsondata', [GeoJsonController::class, 'getGeoJsonData'])->name('geojsonall');
@@ -40,7 +42,7 @@ Route::middleware(['auth', UserAccess::class . ':2'])->group(function () {
         ])->except('show');
     });
 
-    Route::prefix('data')->group(function () {
+    Route::prefix('admin/data')->group(function () {
         Route::post('kampus/datatables', [KampusController::class, 'dataTables'])->name('kampus.datatables');
         Route::get('kampus/{kampus}/delete', [KampusController::class, 'delete'])->name('kampus.delete');
         Route::resource('kampus', KampusController::class)->parameters([

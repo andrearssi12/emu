@@ -1,16 +1,50 @@
 @extends('layout/app')
 
-@push('stylesheet')
-    @vite('resources/css/map/mapbox-gl.css')
+@push('vite')
+    @vite(['resources/css/map/mapbox-gl.css', 'resources/js/map/mapbox-gl.js'])
 @endpush
 
 @section('content')
+    <div class="p-4 w-full pt-20 bg-gray-900">
+
+        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center flex items-center justify-between dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            type="button">Dropdown button <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+            </svg>
+        </button>
+
+        <!-- Dropdown menu -->
+        <div id="dropdown" class="w-full z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                <li>
+                    <a href="#"
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
     <div
-        class="flex flex-col md:flex-row w-full h-full md:h-screen p-4 pt-20 bg-gray-50 dark:bg-gray-900 space-y-2 gap-2 md:space-y-0">
+        class="flex flex-col md:flex-row w-full h-full md:h-screen p-4  bg-gray-50 dark:bg-gray-900 space-y-2 gap-2 md:space-y-0">
         <div
             class="w-full md:w-1/4 h-full p-3 bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 rounded-md">
             <h3 class="text-l font-bold dark:text-white">Pilih Kampus</h3>
-            <ul id="kampus-list" class="list-inside ml-2 dark:text-white">
+            <ul id="kampus-list" class="list-disc ml-2 dark:text-white">
                 @foreach ($kampus as $item)
                     <li onclick="selectKampus('{{ $item->hashed_id }}', this)" class="my-2">
                         <button id="button-{{ $item->hashed_id }}"
@@ -29,16 +63,8 @@
 @endsection
 
 @push('scripts')
-    @vite('resources/js/map/mapbox-gl.js')
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const map = new mapboxgl.Map({
-                container: 'map',
-                style: 'mapbox://styles/mapbox/outdoors-v12',
-                center: [110.38315707889181, -7.8331772109174675], // Default center
-                zoom: 13
-            });
 
             const fullScreen = new mapboxgl.FullscreenControl();
             map.addControl(fullScreen, 'top-left');
@@ -113,7 +139,7 @@
                         });
 
                         // Remove active styles from all buttons
-                        document.querySelectorAll('.list-inside li button').forEach(button => {
+                        document.querySelectorAll('.list-disc li button').forEach(button => {
                             button.classList.add('bg-gray-200', 'dark:bg-gray-700'); // Active styles
                             button.classList.remove('bg-gray-400', 'dark:bg-gray-600');
                         });
