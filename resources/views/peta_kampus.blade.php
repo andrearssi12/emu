@@ -41,7 +41,7 @@
                         @foreach ($kampus as $item)
                             <li onclick="selectKampus('{{ $item->hashed_id }}', this)">
                                 <button id="button-{{ $item->hashed_id }}"
-                                    class="w-full text-left p-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition duration-200">
+                                    class="inline-flex w-full text-sm px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition duration-200">
                                     {{ $item->nama_kampus }}
                                 </button>
                             </li>
