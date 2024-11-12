@@ -44,7 +44,8 @@ export default {
   },
   plugins: [
     require('flowbite/plugin'),
-    require('tw-bootstrap-grid-optimizer')
+    require('tw-bootstrap-grid-optimizer'),
+    require('tailwindcss-important')
   ],
 }
 

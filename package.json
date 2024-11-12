@@ -24,6 +24,7 @@
         "apexcharts": "^3.52.0",
         "datatables.net-dt": "^2.1.6",
         "datatables.net-responsive-dt": "^3.0.3",
+        "tailwindcss-important": "^1.0.0",
         "tw-bootstrap-grid-optimizer": "^1.0.2"
     }
 }
