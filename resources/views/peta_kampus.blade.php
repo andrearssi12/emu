@@ -8,19 +8,16 @@
     <div
         class="flex flex-col md:flex-row w-full h-full md:h-screen p-4 pt-20 bg-gray-50 dark:bg-gray-900 space-y-2 gap-2 md:space-y-0">
         <div
-            class="w-full md:w-1/4 h-full p-3 bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 rounded-md">
-            <h3 class="text-l font-bold dark:text-white">Pilih Kampus</h3>
-            <ul id="kampus-list" class="list-disc ml-2 dark:text-white">
+            class="w-full hidden lg:block md:w-1/4 h-full p-4 bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 rounded-md">
+            <h3 class="text-l font-bold dark:text-white mb-2">Pilih Kampus</h3>
+            <ul id="kampus-list" class="ml-2 dark:text-white">
                 @foreach ($kampus as $item)
-                    <li onclick="selectKampus('{{ $item->hashed_id }}', this)" class="my-2">
-                        <button id="button-{{ $item->hashed_id }}"
-                            class="w-full text-left p-2 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition duration-200">
-                            {{ $item->nama_kampus }}
-                        </button>
+                    <li id="button-{{ $item->hashed_id }}" onclick="selectKampus('{{ $item->hashed_id }}', this)"
+                        class="ms-2 p-2 text-gray-700 hover:text-primary-700 dark:text-gray-400 dark:hover:text-white transition duration-200 cursor-pointer hover:list-disc">
+                        {{ $item->nama_kampus }}
                     </li>
                 @endforeach
             </ul>
-            <p id="instruction" class="text-gray-500 mt-2">Pilih pada kampus untuk melihat informasi lebih lanjut.</p>
         </div>
         <div class="w-full md:w-3/4 h-full order-first md:order-none">
             <div id="map" class="w-full h-screen md:h-full rounded-md">
@@ -37,13 +34,12 @@
                 <!-- Dropdown menu -->
                 <div id="dropdownLeft"
                     class="z-10 overflow-y-auto hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 absolute !top-2">
-                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownLeftButton">
+                    <ul class="text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownLeftButton">
                         @foreach ($kampus as $item)
-                            <li onclick="selectKampus('{{ $item->hashed_id }}', this)">
-                                <button id="button-{{ $item->hashed_id }}"
-                                    class="inline-flex w-full text-sm px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition duration-200">
-                                    {{ $item->nama_kampus }}
-                                </button>
+                            <li id="dropdown-button-{{ $item->hashed_id }}"
+                                onclick="selectKampus('{{ $item->hashed_id }}', this)"
+                                class="w-full text-left p-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition duration-200 cursor-pointer hover:list-disc">
+                                {{ $item->nama_kampus }}
                             </li>
                         @endforeach
                     </ul>
@@ -81,8 +77,18 @@
                         // Set the first campus button as active
                         const firstCampusButton = document.getElementById('button-' + firstCampus.properties
                             .id);
-                        firstCampusButton.classList.remove('bg-gray-200', 'dark:bg-gray-700'); // Active styles
-                        firstCampusButton.classList.add('bg-gray-400', 'dark:bg-gray-600'); // Active styles
+                        firstCampusButton.classList.remove('text-gray-700', 'hover:text-primary-700',
+                            'dark:text-gray-400', 'dark:hover:text-white'); // Active styles
+                        firstCampusButton.classList.add('text-primary-700',
+                            'dark:text-primary-500', 'list-disc'); // Active styles
+
+                        // Set the first dropdown button as active
+                        const firstDropdownButton = document.getElementById('dropdown-button-' + firstCampus
+                            .properties.id);
+                        firstDropdownButton.classList.remove('bg-gray-200',
+                            'dark:bg-gray-700'); // Active styles
+                        firstDropdownButton.classList.add('bg-gray-400', 'dark:bg-gray-600',
+                            'list-disc'); // Active styles
                     }
                 });
 
@@ -103,17 +109,6 @@
                             'fill-opacity': 1
                         }
                     });
-
-                    data.features.forEach(feature => {
-                        const centroid = turf.centroid(feature);
-
-                        const marker = new mapboxgl.Marker()
-                            .setLngLat(centroid.geometry.coordinates)
-                            .setPopup(new mapboxgl.Popup().setHTML(
-                                `<strong>${feature.properties.nama_kampus}</strong>`
-                            ))
-                            .addTo(map);
-                    });
                 });
             }
 
@@ -129,15 +124,35 @@
                             essential: true
                         });
 
-                        // Remove active styles from all buttons
-                        document.querySelectorAll('.list-disc li button').forEach(button => {
-                            button.classList.add('bg-gray-200', 'dark:bg-gray-700'); // Active styles
-                            button.classList.remove('bg-gray-400', 'dark:bg-gray-600');
+                        // Remove active styles from all list items
+                        document.querySelectorAll('#kampus-list li').forEach(listItem => {
+                            listItem.classList.add('text-gray-700',
+                                'hover:text-primary-700',
+                                'dark:text-gray-400', 'dark:hover:text-white'); // Active styles
+                            listItem.classList.remove('text-primary-700',
+                                'dark:text-primary-500', 'list-disc'); // Active styles
                         });
 
-                        // Set the clicked button as active
-                        element.querySelector('button').classList.add('bg-gray-400', 'dark:bg-gray-600');
-                        element.querySelector('button').classList.remove('bg-gray-200', 'dark:bg-gray-700');
+                        // Remove active styles from all dropdown items
+                        document.querySelectorAll('#dropdownLeft li').forEach(listItem => {
+                            listItem.classList.add('bg-gray-200',
+                                'dark:bg-gray-700'); // Inactive styles
+                            listItem.classList.remove('bg-gray-400',
+                                'dark:bg-gray-600', 'list-disc'); // Active styles
+                        });
+
+                        // Set the corresponding dropdown item as active
+                        const dropdownItem = document.getElementById('dropdown-button-' + kampusId);
+                        dropdownItem.classList.add('bg-gray-400', 'dark:bg-gray-600',
+                            'list-disc'); // Active styles
+                        dropdownItem.classList.remove('bg-gray-200', 'dark:bg-gray-700'); // Inactive styles
+
+                        const dropdownItem2 = document.getElementById('button-' + kampusId);
+                        dropdownItem2.classList.remove('text-gray-700',
+                            'hover:text-primary-700',
+                            'dark:text-gray-400', 'dark:hover:text-white'); // Active styles
+                        dropdownItem2.classList.add('text-primary-700',
+                            'dark:text-primary-500', 'list-disc'); // Active styles
                     }
                 }
             }

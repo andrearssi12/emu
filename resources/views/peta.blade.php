@@ -9,13 +9,11 @@
         class="flex flex-col md:flex-row w-full h-full md:h-screen p-4 pt-20 bg-gray-50 dark:bg-gray-900 space-y-2 md:space-x-2 md:space-y-0">
         <div class="w-full md:w-1/4 h-full p-3 bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
             <h3 class="text-l font-bold dark:text-white">Pilih Kampus</h3>
-            <ul id="kampus-list" class="list-inside ml-2 dark:text-white">
+            <ul id="kampus-list" class="ml-2 dark:text-white">
                 @foreach ($kampus as $item)
-                    <li onclick="selectKampus('{{ $item->hashed_id }}', this)" class="my-2">
-                        <button id="button-{{ $item->hashed_id }}"
-                            class="w-full text-left p-2 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition duration-200">
-                            {{ $item->nama_kampus }}
-                        </button>
+                    <li id="button-{{ $item->hashed_id }}" onclick="selectKampus('{{ $item->hashed_id }}', this)"
+                        class="ms-2 p-2 text-gray-700 hover:text-primary-700 dark:text-gray-400 dark:hover:text-white transition duration-200 cursor-pointer hover:list-disc">
+                        {{ $item->nama_kampus }}
                     </li>
                 @endforeach
             </ul>
@@ -88,8 +86,10 @@
                         // Set the first campus button as active
                         const firstCampusButton = document.getElementById('button-' + firstCampus.properties
                             .id);
-                        firstCampusButton.classList.remove('bg-gray-200', 'dark:bg-gray-700'); // Active styles
-                        firstCampusButton.classList.add('bg-gray-400', 'dark:bg-gray-600'); // Active styles
+                        firstCampusButton.classList.remove('text-gray-700', 'hover:text-primary-700',
+                            'dark:text-gray-400', 'dark:hover:text-white'); // Active styles
+                        firstCampusButton.classList.add('text-primary-700',
+                            'dark:text-primary-500', 'list-disc'); // Active styles
                     }
                 });
 
@@ -213,15 +213,21 @@
                             essential: true
                         });
 
-                        // Remove active styles from all buttons
-                        document.querySelectorAll('.list-inside li button').forEach(button => {
-                            button.classList.add('bg-gray-200', 'dark:bg-gray-700'); // Active styles
-                            button.classList.remove('bg-gray-400', 'dark:bg-gray-600');
+                        // Remove active styles from all list items
+                        document.querySelectorAll('#kampus-list li').forEach(listItem => {
+                            listItem.classList.add('text-gray-700',
+                                'hover:text-primary-700',
+                                'dark:text-gray-400', 'dark:hover:text-white'); // Active styles
+                            listItem.classList.remove('text-primary-700',
+                                'dark:text-primary-500', 'list-disc'); // Active styles
                         });
 
-                        // Set the clicked button as active
-                        element.querySelector('button').classList.add('bg-gray-400', 'dark:bg-gray-600');
-                        element.querySelector('button').classList.remove('bg-gray-200', 'dark:bg-gray-700');
+                        const dropdownItem2 = document.getElementById('button-' + kampusId);
+                        dropdownItem2.classList.remove('text-gray-700',
+                            'hover:text-primary-700',
+                            'dark:text-gray-400', 'dark:hover:text-white'); // Active styles
+                        dropdownItem2.classList.add('text-primary-700',
+                            'dark:text-primary-500', 'list-disc'); // Active styles
                     }
                 }
             }
