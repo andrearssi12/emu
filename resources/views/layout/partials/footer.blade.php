@@ -1,6 +1,6 @@
 <footer class="h-96">
     <div class="w-full bottom-0 end-0 md:content-end -z-10 py-10 md:fixed">
-        <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+        <div class="container mx-auto w-full p-4 py-6 lg:py-8">
             <div class="md:flex md:justify-between">
                 <div class="mb-6 md:mb-0">
                     <a href="https://flowbite.com/" class="flex items-center">

@@ -20,9 +20,9 @@
             </ul>
         </div>
         <div class="w-full md:w-3/4 h-full order-first md:order-none">
-            <div id="map" class="w-full h-screen md:h-full rounded-md">
+            <div id="map" class="w-full h-[calc(100vh-7rem)] mb-2 md:h-full rounded-md">
                 <button id="dropdownLeftButton" data-dropdown-toggle="dropdownLeft" data-dropdown-placement="left"
-                    class="absolute top-2 right-2 z-30 p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    class="absolute top-2 right-2 z-20 p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                     type="button">
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                         viewBox="0 0 4 15">

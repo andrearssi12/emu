@@ -121,7 +121,7 @@
             @else
                 <!-- Modal toggle -->
                 <button onclick="showDialog()"
-                    class="text-sm rounded-lg px-4 py-2 text-center mx-3 text-black ring-2 ring-black hover:bg-black hover:text-white dark:text-white dark:ring-white dark:hover:bg-white dark:hover:text-black"
+                    class="lg:block hidden text-sm rounded-lg px-4 py-2 text-center mx-3 text-black ring-2 ring-black hover:bg-black hover:text-white dark:text-white dark:ring-white dark:hover:bg-white dark:hover:text-black"
                     type="button">
                     Login
                 </button>
@@ -159,9 +159,9 @@
                 class="block py-3 px-4 text-gray-900 lg:py-0 dark:text-white lg:hover:underline lg:px-0">Kawasan
                 Hijau</a>
         </li>
-        <li class="block border-b dark:border-gray-700 dark:hover:bg-gray-900">
-            <a href="#"
-                class="block py-3 px-4 text-gray-900 lg:py-0 dark:text-white lg:hover:underline lg:px-0">Settings</a>
+        <li onclick="showDialog()"
+            class="{{ Auth::check() ? 'hidden' : 'block' }} border-b dark:border-gray-700 dark:hover:bg-gray-900 cursor-pointer">
+            <span class="block py-3 px-4 text-gray-900 lg:py-0 dark:text-white lg:hover:underline lg:px-0">Login</span>
         </li>
         <li class="block border-b dark:border-gray-700 dark:hover:bg-gray-900">
             <button type="button" data-collapse-toggle="dropdownMobileNavbar"

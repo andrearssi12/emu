@@ -14,7 +14,7 @@
     @stack('stylesheet')
 </head>
 
-<body class="bg-gray-50 dark:bg-gray-800">
+<body class="bg-gray-50 dark:bg-gray-800 font-sans">
     <div class="fixed inset-0 z-30 hidden bg-gray-900/50 dark:bg-gray-900/90" id="sidebarBackdrop"></div>
     <header>
         @if (request()->is('admin/*'))
@@ -42,6 +42,7 @@
         <main>
             @yield('content')
         </main>
+        @include('layout.partials.footer')
     @endif
 
     @stack('modal')
