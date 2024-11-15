@@ -13,7 +13,7 @@
                 How Green Is Your Campus?
             </p>
             <div class="flex flex-col space-y-4">
-                <a href="{{ route('peta') }}"
+                <a id="get-started-button" href="#first-content"
                     class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 shadow-lg shadow-gray-800">
                     Get started
                     <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -25,8 +25,7 @@
             </div>
         </div>
     </section>
-
-    <section class="bg-gray-100 dark:bg-gray-800">
+    <section id="first-content" class="bg-gray-100 dark:bg-gray-800">
         <div class="container py-12 px-4">
             <div class="grid grid-cols-1 gap-6 rounded-xl lg:grid-cols-2">
                 <div class="flex flex-col justify-center items-start space-y-4">
@@ -39,7 +38,7 @@
                 <div class="group relative rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-400">
                     <div class="w-full h-full flex absolute justify-center items-center">
                         <a href="{{ route('peta.kampus') }}"
-                            class="z-10 px-6 py-3.5 text-base font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-500 shadow-md shadow-gray-800">View
+                            class="z-10 px-3 py-2 text-sm sm:px-6 sm:py-3.5 sm:text-base sm:font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-500 shadow-md shadow-gray-800">View
                             Details</a>
                     </div>
                     <img src="{{ Vite::asset('resources/img/peta-kampus.png') }}" alt="Eco Map UAD"
@@ -49,12 +48,12 @@
         </div>
     </section>
     <section class="bg-gray-100 dark:bg-gray-800">
-        <div class="container py-12 px-4">
+        <div class="container sm:py-12 px-4">
             <div class="grid grid-cols-1 gap-6 rounded-xl lg:grid-cols-2">
                 <div class="group relative rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-400 order-2 lg:order-1">
                     <div class="w-full h-full flex absolute justify-center items-center">
                         <a href="{{ route('peta') }}"
-                            class="z-10 px-6 py-3.5 text-base font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-500 shadow-md shadow-gray-800">View
+                            class="z-10 px-3 py-2 text-sm sm:px-6 sm:py-3.5 sm:text-base sm:font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-500 shadow-md shadow-gray-800">View
                             Details</a>
                     </div>
                     <img src="{{ Vite::asset('resources/img/peta-kawasan.png') }}" alt="Eco Map UAD"
@@ -76,24 +75,11 @@
 
 @push('scripts')
     <script>
-        // Memilih elemen HTML yang ingin Anda pantau perubahan kelasnya
-        var elemen = document.getElementById('navbar');
-
-        // Menambahkan event listener untuk mendeteksi scroll
-        window.addEventListener('scroll', function() {
-            // Mendapatkan posisi scroll vertikal
-            var scrollPosition = window.scrollY;
-
-            // Menentukan kondisi untuk mengubah kelas
-            if (scrollPosition > 100) { // Misalnya, mengubah kelas saat scroll melebihi 100 piksel
-                elemen.classList.add('backdrop-blur-xl');
-                elemen.classList.add('bg-black/60');
-                elemen.classList.remove('bg-inherit');
-            } else {
-                elemen.classList.remove('backdrop-blur-xl');
-                elemen.classList.remove('bg-black/60');
-                elemen.classList.add('bg-inherit');
-            }
+        document.getElementById('get-started-button').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('first-content').scrollIntoView({
+                behavior: 'smooth'
+            });
         });
     </script>
 @endpush

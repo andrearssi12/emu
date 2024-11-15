@@ -20,7 +20,8 @@
             <div class="flex-1">
                 <div class="px-3 pb-3 pt-4 items-center flex">
                     <a href="{{ route('dashboard') }}" class="flex ml-2 md:mr-24">
-                        <img src="{{ asset('img/logo-putih.png') }}" class="mr-3 h-6 sm:h-7" alt="EMU Logo" />
+                        <img src="{{ Vite::asset('resources/img/logo-putih.png') }}" class="mr-3 h-6 sm:h-7"
+                            alt="EMU Logo" />
                         <span
                             class="self-center text-l font-semibold sm:text-xl whitespace-nowrap text-white">EMU</span>
                     </a>

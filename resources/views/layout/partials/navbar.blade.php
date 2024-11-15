@@ -2,8 +2,10 @@
     <div class="flex justify-between items-center max-w-screen-2xl mx-auto">
         <div class="flex justify-start items-center">
             <a href="{{ route('beranda') }}" class="flex mr-14">
-                <img src="{{ asset('img/logo-putih.png') }}" class="mr-3 h-8 hidden dark:block" alt="EMU Logo" />
-                <img src="{{ asset('img/logo-hitam.png') }}" class="mr-3 h-8 dark:hidden" alt="EMU Logo" />
+                <img src="{{ Vite::asset('resources/img/logo-putih.png') }}" class="mr-3 h-8 hidden dark:block"
+                    alt="EMU Logo" />
+                <img src="{{ Vite::asset('resources/img/logo-hitam.png') }}" class="mr-3 h-8 dark:hidden"
+                    alt="EMU Logo" />
                 <span
                     class="self-center hidden sm:flex text-2xl font-semibold whitespace-nowrap dark:text-white">EMU</span>
             </a>
@@ -63,9 +65,10 @@
                 <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
                     id="userMenuDropdown">
                     <div class="py-3 px-4">
-                        <span class="block text-sm font-semibold text-gray-900 dark:text-white">Neil Sims</span>
                         <span
-                            class="block text-sm font-light text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
+                            class="block text-sm font-semibold text-gray-900 dark:text-white">{{ Auth::user()->nama }}</span>
+                        <span
+                            class="block text-sm font-light text-gray-500 truncate dark:text-gray-400">{{ Auth::user()->email }}</span>
                     </div>
                     <ul class="py-1 font-light text-gray-500 dark:text-gray-400"
                         aria-labelledby="userMenuDropdownButton">
@@ -266,30 +269,6 @@
             </div>
         </div>
     </div>
-    <div id="toast-success"
-        class="hidden fixed top-0 left-0 z-50 items-center w-screen p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
-        role="alert">
-        <div
-            class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                viewBox="0 0 20 20">
-                <path
-                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-            </svg>
-            <span class="sr-only">Check icon</span>
-        </div>
-        <div class="ms-3 text-sm font-normal">Berhasil Login</div>
-        <button type="button"
-            class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
-            data-dismiss-target="#toast-success" aria-label="Close">
-            <span class="sr-only">Close</span>
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 14 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-            </svg>
-        </button>
-    </div>
 @endpush
 
 @push('scripts')
@@ -314,19 +293,9 @@
                 dialog.classList.add("hidden");
             }, 300);
         }
-
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener('DOMContentLoaded', function() {
             @if ($errors->any())
                 showDialog();
-            @endif
-            @if (session('success'))
-                let toast = document.getElementById("toast-success");
-                toast.classList.remove("hidden");
-                toast.classList.add("flex");
-                setTimeout(() => {
-                    toast.classList.remove("flex");
-                    toast.classList.add("hidden");
-                }, 3000);
             @endif
         });
     </script>
