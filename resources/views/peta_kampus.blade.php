@@ -52,7 +52,7 @@
     <!-- Modal -->
     <div id="modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-gray-500/50">
         <div class="flex items-center justify-center min-h-screen px-4">
-            <div class="relative w-full max-w-lg p-4 bg-gray-50 rounded-lg shadow-lg dark:bg-gray-900">
+            <div class="relative w-full max-w-lg p-4 bg-white rounded-lg shadow-lg dark:bg-gray-700">
                 <div class="flex justify-between items-center pb-3">
                     <h3 class="text-lg font-medium text-gray-900 dark:text-white">Campus Information</h3>
                     <button id="close-modal" class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
@@ -63,21 +63,14 @@
                         </svg>
                     </button>
                 </div>
-                <div class="p-2 relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div class="p-2 relative overflow-x-auto sm:rounded-lg">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <tr class="border-b border-gray-200 dark:border-gray-700">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                                 Nama Kampus
                             </th>
-                            <td class="px-6 py-4">
-                                Silver
-                            </td>
-                            <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                                Laptop
-                            </td>
-                            <td class="px-6 py-4">
-                                $2999
+                            <td id="campus-name" class="px-6 py-4">
                             </td>
                         </tr>
                         <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -85,14 +78,7 @@
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                                 Alamat
                             </th>
-                            <td class="px-6 py-4">
-                                White
-                            </td>
-                            <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                                Laptop PC
-                            </td>
-                            <td class="px-6 py-4">
-                                $1999
+                            <td id="campus-address" class="px-6 py-4">
                             </td>
                         </tr>
                         <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -100,14 +86,7 @@
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                                 Luas
                             </th>
-                            <td class="px-6 py-4">
-                                Black
-                            </td>
-                            <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                                Accessories
-                            </td>
-                            <td class="px-6 py-4">
-                                $99
+                            <td id="campus-area" class="px-6 py-4">
                             </td>
                         </tr>
                         <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -116,13 +95,7 @@
                                 Kawasan Hijau
                             </th>
                             <td class="px-6 py-4">
-                                Gray
-                            </td>
-                            <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                                Phone
-                            </td>
-                            <td class="px-6 py-4">
-                                $799
+
                             </td>
                         </tr>
                     </table>
