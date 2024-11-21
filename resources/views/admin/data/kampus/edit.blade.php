@@ -159,25 +159,10 @@
             zoom: 16 // starting zoom
         });
 
-        const draw = new MapboxDraw({
-            displayControlsDefault: false, // Menonaktifkan semua kontrol default
-            controls: {
-                polygon: true, // Aktifkan kontrol polygon
-                trash: true // Aktifkan kontrol trash
-            },
-            modes: {
-                ...MapboxDraw.modes,
-                simple_select: {
-                    ...MapboxDraw.modes.simple_select,
-                    dragMove() {} // Nonaktifkan dragging untuk simple_select
-                },
-                direct_select: {
-                    ...MapboxDraw.modes.direct_select,
-                    dragFeature() {} // Nonaktifkan dragging untuk direct_select
-                }
-            }
-        });
+
         map.addControl(draw, 'top-right');
+
+
 
 
         const fullScreen = new mapboxgl.FullscreenControl();

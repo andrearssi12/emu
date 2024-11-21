@@ -13,11 +13,11 @@ use App\Http\Controllers\Admin\Data\KawasanHijauController;
 use App\Http\Controllers\Admin\Data\PenggunaanLahanController;
 
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
-Route::get('/kampus', [PetaController::class, 'petaKampus'])->name('peta.kampus');
+Route::get('/peta-kampus', [PetaController::class, 'petaKampus'])->name('peta.kampus');
+Route::get('/peta-kawasan-hijau', [PetaController::class, 'index'])->name('peta.kawasan.hijau');
 
 Route::get('proporsi-luas-kawasan-hijau', [DashboardController::class, 'proporsiLuasKawasanHijau'])->name('proporsiLuasKawasanHijau');
 
-Route::get('/peta', [PetaController::class, 'index'])->name('peta');
 
 Route::get('/geojsondata', [GeoJsonController::class, 'getGeoJsonData'])->name('geojsonall');
 Route::get('/geojsonkampus', [GeoJsonController::class, 'getGeoJsonKampusData'])->name('geojsonkampus');

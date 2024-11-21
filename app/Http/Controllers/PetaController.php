@@ -13,7 +13,7 @@ class PetaController extends Controller
      */
     public function index()
     {
-        $pageTitle = 'Peta';
+        $pageTitle = 'Peta Kawasan Hijau';
 
         $kampus = Kampus::all();
 

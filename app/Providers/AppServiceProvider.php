@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Kampus;
 use App\Models\KawasanHijau;
+use App\Models\PenggunaanLahan;
 use App\Models\User;
 use Hashids\Hashids;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,11 @@ class AppServiceProvider extends ServiceProvider
         Route::bind('kawasanHijau', function ($value) {
             $originalId = $this->hashids->decode($value)[0] ?? null;
             return KawasanHijau::findOrFail($originalId);
+        });
+        // Custom route binding
+        Route::bind('penggunaanLahan', function ($value) {
+            $originalId = $this->hashids->decode($value)[0] ?? null;
+            return PenggunaanLahan::findOrFail($originalId);
         });
     }
 }

@@ -22,8 +22,8 @@
                         class="block {{ \Route::is('peta.kampus') ? 'text-primary-700 dark:text-primary-500' : 'text-gray-700 hover:text-primary-700 dark:text-gray-400 dark:hover:text-white' }}">Kampus</a>
                 </li>
                 <li>
-                    <a href="{{ route('peta') }}"
-                        class="block text-gray-700 hover:text-primary-700 dark:text-gray-400 dark:hover:text-white">Kawasan
+                    <a href="{{ route('peta.kawasan.hijau') }}"
+                        class="block {{ \Route::is('peta.kawasan.hijau') ? 'text-primary-700 dark:text-primary-500' : 'text-gray-700 hover:text-primary-700 dark:text-gray-400 dark:hover:text-white' }}">Kawasan
                         Hijau</a>
                 </li>
                 <li>
@@ -157,8 +157,8 @@
                 class="block py-3 px-4 text-gray-900 lg:py-0 dark:text-white lg:hover:underline lg:px-0">Kampus</a>
         </li>
         <li
-            class="block border-b dark:border-gray-700 {{ \Route::is('peta') ? 'dark:bg-gray-900' : 'dark:hover:bg-gray-900' }}">
-            <a href="{{ route('peta') }}"
+            class="block border-b dark:border-gray-700 {{ \Route::is('peta.kawasan.hijau') ? 'dark:bg-gray-900' : 'dark:hover:bg-gray-900' }}">
+            <a href="{{ route('peta.kawasan.hijau') }}"
                 class="block py-3 px-4 text-gray-900 lg:py-0 dark:text-white lg:hover:underline lg:px-0">Kawasan
                 Hijau</a>
         </li>

@@ -9,7 +9,7 @@
         <div class="col-12 md:col-4">
             <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <div class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
-                    <i class="fa fa-regular fa-user text-primary-500 dark:text-white text-xl"></i>
+                    <i class="fa fa-regular fa-user text-blue-500 text-xl"></i>
                 </div>
                 <div class="mt-4 flex items-end justify-between">
                     <div>
@@ -22,7 +22,7 @@
         <div class="col-12 md:col-4">
             <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <div class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
-                    <i class="fa fa-regular fa-map text-primary-500 dark:text-white text-xl"></i>
+                    <i class="fa fa-regular fa-map text-blue-500 text-xl"></i>
                 </div>
                 <div class="mt-4 flex items-end justify-between">
                     <div>
@@ -35,7 +35,7 @@
         <div class="col-12 md:col-4">
             <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <div class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
-                    <i class="fa fa-regular fa-square text-primary-500 dark:text-white text-xl"></i>
+                    <i class="fa fa-regular fa-square text-blue-500  text-xl"></i>
                 </div>
                 <div class="mt-4 flex items-end justify-between">
                     <div>

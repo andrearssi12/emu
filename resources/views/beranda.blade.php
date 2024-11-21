@@ -52,7 +52,7 @@
             <div class="grid grid-cols-1 gap-6 rounded-xl lg:grid-cols-2">
                 <div class="group relative rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-400 order-2 lg:order-1">
                     <div class="w-full h-full flex absolute justify-center items-center">
-                        <a href="{{ route('peta') }}"
+                        <a href="{{ route('peta.kawasan.hijau') }}"
                             class="z-10 px-3 py-2 text-sm sm:px-6 sm:py-3.5 sm:text-base sm:font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-500 shadow-md shadow-gray-800">View
                             Details</a>
                     </div>

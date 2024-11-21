@@ -1,5 +1,5 @@
 <nav
-    class="w-full fixed z-20 bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-none lg:ml-64 lg:w-[calc(100%-16rem)]">
+    class="w-full fixed z-20 bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700 lg:ml-64 lg:w-[calc(100%-16rem)]">
     <div class="p-3 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between lg:justify-end">
             <div class="flex items-center justify-start lg:hidden">

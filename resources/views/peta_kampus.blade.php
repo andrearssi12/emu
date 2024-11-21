@@ -1,7 +1,7 @@
 @extends('layout/app')
 
 @push('vite')
-    @vite(['resources/css/map/mapbox-gl.css', 'resources/js/map/mapbox-gl.js'])
+    @vite(['resources/js/map/mapbox-gl.js'])
 @endpush
 
 @section('content')
@@ -95,16 +95,13 @@
                                 Kawasan Hijau
                             </th>
                             <td class="px-6 py-4">
-
+                                <a id="view-green-area" href="{{ route('peta.kawasan.hijau') }}"
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                    Kawasan Hijau
+                                </a>
                             </td>
                         </tr>
                     </table>
-                </div>
-                <div class="p-4">
-                    <p id="campus-name" class="text-gray-700 dark:text-gray-300"></p>
-                    <p id="campus-address" class="text-gray-700 dark:text-gray-300"></p>
-                    <p id="campus-area" class="text-gray-700 dark:text-gray-300"></p>
-
                 </div>
             </div>
         </div>
@@ -119,12 +116,16 @@
             const campusName = document.getElementById('campus-name');
             const campusAddress = document.getElementById('campus-address');
             const campusArea = document.getElementById('campus-area');
+            const viewGreenAreaLink = document.getElementById('view-green-area');
+            let selectedCampusId = null;
 
+            // Close modal and reset body overflow
             closeModalButton.addEventListener('click', function() {
                 modal.classList.add('hidden');
                 document.body.classList.remove('overflow-hidden');
             });
 
+            // Add fullscreen control to the map
             const fullScreen = new mapboxgl.FullscreenControl();
             map.addControl(fullScreen, 'top-left');
 
@@ -132,11 +133,13 @@
 
             function initializeMap(data) {
                 map.on('load', function() {
+                    // Add GeoJSON source
                     map.addSource('kampus', {
                         'type': 'geojson',
                         'data': data
                     });
 
+                    // Add fill layer for campuses
                     map.addLayer({
                         'id': 'kampus-layer',
                         'type': 'fill',
@@ -148,38 +151,66 @@
                         }
                     });
 
-                    // Add click event listener for the layer
-                    map.on('click', 'kampus-layer', function(e) {
-                        const properties = e.features[0].properties;
-                        campusName.textContent = `Nama Kampus: ${properties.nama_kampus}`;
-                        campusAddress.textContent += `Alamat: ${properties.lokasi}`;
-                        campusArea.textContent += `Luas: ${properties.luas}`;
-                        modal.classList.remove('hidden');
-                        document.body.classList.add('overflow-hidden');
+                    // Add outline layer for campuses
+                    map.addLayer({
+                        'id': 'kampus-outline',
+                        'type': 'line',
+                        'source': 'kampus',
+                        'layout': {},
+                        'paint': {
+                            'line-color': '#FF0000',
+                            'line-width': 2
+                        },
+                        'filter': ['==', 'id', ''] // Initially, no feature is selected
                     });
 
-                    // Change the cursor to a pointer when
-                    // the mouse is over the states layer.
+                    // Click event listener for the fill layer
+                    map.on('click', 'kampus-layer', function(e) {
+                        const properties = e.features[0].properties;
+                        campusName.textContent = properties.nama_kampus;
+                        campusAddress.textContent = properties.lokasi;
+                        campusArea.textContent = properties.luas;
+                        selectedCampusId = properties.id;
+                        modal.classList.remove('hidden');
+                        document.body.classList.add('overflow-hidden');
+
+                        // Update the filter for the outline layer to show the clicked feature
+                        map.setFilter('kampus-outline', ['==', 'id', properties.id]);
+                    });
+
+                    // Click event listener for the map to detect clicks outside the polygons
+                    map.on('click', function(e) {
+                        const features = map.queryRenderedFeatures(e.point, {
+                            layers: ['kampus-layer']
+                        });
+
+                        if (!features.length) {
+                            // No features were clicked, reset the outline filter
+                            map.setFilter('kampus-outline', ['==', 'id', '']);
+                        }
+                    });
+
+                    // Change cursor to pointer when mouse is over the layer
                     map.on('mouseenter', 'kampus-layer', () => {
                         map.getCanvas().style.cursor = 'pointer';
                     });
 
-                    // Change the cursor back to a pointer
-                    // when it leaves the states layer.
+                    // Change cursor back when mouse leaves the layer
                     map.on('mouseleave', 'kampus-layer', () => {
                         map.getCanvas().style.cursor = '';
                     });
                 });
             }
 
+            // Fetch GeoJSON data and initialize the map
             fetch('/geojsonkampus')
                 .then(response => response.json())
                 .then(data => {
                     geojsonData = data;
                     initializeMap(data);
 
-                    // Dynamically find the first campus to focus on
-                    const firstCampus = data.features[0]; // Change this logic if needed
+                    // Focus on the first campus initially
+                    const firstCampus = data.features[0];
                     if (firstCampus) {
                         const centroid = turf.centroid(firstCampus);
                         map.flyTo({
@@ -192,20 +223,26 @@
                         const firstCampusButton = document.getElementById('button-' + firstCampus.properties
                             .id);
                         firstCampusButton.classList.remove('text-gray-700', 'hover:text-primary-700',
-                            'dark:text-gray-400', 'dark:hover:text-white'); // Active styles
-                        firstCampusButton.classList.add('text-primary-700',
-                            'dark:text-primary-500', 'list-disc'); // Active styles
+                            'dark:text-gray-400', 'dark:hover:text-white');
+                        firstCampusButton.classList.add('text-primary-700', 'dark:text-primary-500',
+                            'list-disc');
 
                         // Set the first dropdown button as active
                         const firstDropdownButton = document.getElementById('dropdown-button-' + firstCampus
                             .properties.id);
-                        firstDropdownButton.classList.remove('bg-gray-200',
-                            'dark:bg-gray-700'); // Active styles
-                        firstDropdownButton.classList.add('bg-gray-400', 'dark:bg-gray-600',
-                            'list-disc'); // Active styles
+                        firstDropdownButton.classList.remove('bg-gray-200', 'dark:bg-gray-700');
+                        firstDropdownButton.classList.add('bg-gray-400', 'dark:bg-gray-600', 'list-disc');
                     }
                 });
 
+            // View green area button event listener
+            viewGreenAreaLink.addEventListener('click', function() {
+                if (selectedCampusId) {
+                    localStorage.setItem('selectedCampusId', selectedCampusId);
+                }
+            });
+
+            // Function to select a campus and fly to its location
             window.selectKampus = function(kampusId, element) {
                 if (geojsonData) {
                     const feature = geojsonData.features.find(f => f.properties.id === kampusId);
@@ -220,33 +257,27 @@
 
                         // Remove active styles from all list items
                         document.querySelectorAll('#kampus-list li').forEach(listItem => {
-                            listItem.classList.add('text-gray-700',
-                                'hover:text-primary-700',
-                                'dark:text-gray-400', 'dark:hover:text-white'); // Active styles
-                            listItem.classList.remove('text-primary-700',
-                                'dark:text-primary-500', 'list-disc'); // Active styles
+                            listItem.classList.add('text-gray-700', 'hover:text-primary-700',
+                                'dark:text-gray-400', 'dark:hover:text-white');
+                            listItem.classList.remove('text-primary-700', 'dark:text-primary-500',
+                                'list-disc');
                         });
 
                         // Remove active styles from all dropdown items
                         document.querySelectorAll('#dropdownLeft li').forEach(listItem => {
-                            listItem.classList.add('bg-gray-200',
-                                'dark:bg-gray-700'); // Inactive styles
-                            listItem.classList.remove('bg-gray-400',
-                                'dark:bg-gray-600', 'list-disc'); // Active styles
+                            listItem.classList.add('bg-gray-200', 'dark:bg-gray-700');
+                            listItem.classList.remove('bg-gray-400', 'dark:bg-gray-600', 'list-disc');
                         });
 
                         // Set the corresponding dropdown item as active
                         const dropdownItem = document.getElementById('dropdown-button-' + kampusId);
-                        dropdownItem.classList.add('bg-gray-400', 'dark:bg-gray-600',
-                            'list-disc'); // Active styles
-                        dropdownItem.classList.remove('bg-gray-200', 'dark:bg-gray-700'); // Inactive styles
+                        dropdownItem.classList.add('bg-gray-400', 'dark:bg-gray-600', 'list-disc');
+                        dropdownItem.classList.remove('bg-gray-200', 'dark:bg-gray-700');
 
                         const dropdownItem2 = document.getElementById('button-' + kampusId);
-                        dropdownItem2.classList.remove('text-gray-700',
-                            'hover:text-primary-700',
-                            'dark:text-gray-400', 'dark:hover:text-white'); // Active styles
-                        dropdownItem2.classList.add('text-primary-700',
-                            'dark:text-primary-500', 'list-disc'); // Active styles
+                        dropdownItem2.classList.remove('text-gray-700', 'hover:text-primary-700',
+                            'dark:text-gray-400', 'dark:hover:text-white');
+                        dropdownItem2.classList.add('text-primary-700', 'dark:text-primary-500', 'list-disc');
                     }
                 }
             }
