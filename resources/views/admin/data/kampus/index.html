@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapbox Draw with Popup</title>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@mapbox/mapbox-gl-draw@1.2.0/dist/mapbox-gl-draw.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@mapbox/mapbox-gl-draw@1.2.0/dist/mapbox-gl-draw.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYW5kcmVhcnNzaSIsImEiOiJjbHZleTZtaDIwZXo4MmpteGd4em5oMzgxIn0.gRf-14docmt0LTS7P4NOOA'; // Ganti dengan token Mapbox Anda
+
+        // Inisialisasi peta
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [0, 0],
+            zoom: 2
+        });
+
+        // Inisialisasi Mapbox Draw control
+        const draw = new MapboxDraw({
+            displayControlsDefault: false,
+            controls: {
+                polygon: true,
+                trash: true
+            }
+        });
+
+        // Menambahkan kontrol Draw ke peta
+        map.addControl(draw);
+
+        // Fungsi untuk menyimpan data yang digambar
+        function saveToSession() {
+            const data = draw.getAll();
+            sessionStorage.setItem('mapData', JSON.stringify(data));
+        }
+
+        // Menangani event create, update, delete dari drawing
+        map.on('draw.create', saveToSession);
+        map.on('draw.update', saveToSession);
+        map.on('draw.delete', saveToSession);
+
+        // Menangani klik pada peta untuk menampilkan popup
+        map.on('click', function (e) {
+            // Ambil semua fitur yang digambar
+            const features = draw.getAll().features;
+            console.log(features);
+
+            // Mencari fitur yang diklik berdasarkan titik koordinat (e.lngLat)
+            for (const feature of features) {
+                if (isPointInPolygon(e.lngLat, feature.geometry.coordinates[0])) {
+                    // Jika polygon diklik, tampilkan popup untuk mengedit properti
+                    new mapboxgl.Popup()
+                        .setLngLat(e.lngLat)
+                        .setHTML(`
+                        <div>
+                            <h3>Set Properties</h3>
+                            <form id="polygon-properties-form">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" placeholder="Enter name" value="${feature.properties.name || ''}" />
+                                <button type="button" onclick="saveProperties('${feature.id}')">Save</button>
+                            </form>
+                        </div>
+                    `)
+                        .addTo(map);
+                    break; // Stop loop once feature is found and popup is shown
+                }
+            }
+        });
+
+        // Fungsi untuk mengecek apakah titik berada dalam polygon
+        function isPointInPolygon(point, polygon) {
+            let inside = false;
+            for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+                const xi = polygon[i][0], yi = polygon[i][1];
+                const xj = polygon[j][0], yj = polygon[j][1];
+                const intersect = ((yi > point.lat) !== (yj > point.lat)) &&
+                    (point.lng < (xj - xi) * (point.lat - yi) / (yj - yi) + xi);
+                if (intersect) inside = !inside;
+            }
+            return inside;
+        }
+
+        // Fungsi untuk menyimpan properti ke fitur polygon
+        function saveProperties(featureId) {
+            const name = document.getElementById('name').value;
+
+            // Ambil data polygon yang digambar
+            const data = draw.getAll();
+            const feature = data.features.find(f => f.id === featureId);
+
+            if (feature) {
+                // Update properti nama pada polygon
+                feature.properties.name = name;
+
+                // Update data di Mapbox Draw
+                draw.set(data);
+
+                // Menyimpan ke sessionStorage (opsional)
+                saveToSession();
+            }
+
+            // Tutup popup setelah menyimpan
+            const popups = document.querySelectorAll('.mapboxgl-popup');
+            popups.forEach(popup => popup.remove());
+        }
+    </script>
+
+</body>
+
+</html>
