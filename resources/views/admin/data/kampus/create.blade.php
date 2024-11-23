@@ -55,7 +55,7 @@
 
     <div id="map" class="w-full my-6 h-[calc(100vh-16rem)] rounded-md shadow"></div>
 
-    <div class="w-full my-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4">
+    {{-- <div class="w-full my-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4">
 
         <form action="{{ route('kampus.store') }}" method="POST">
             @csrf
@@ -91,7 +91,7 @@
                 Data</button>
         </form>
 
-    </div>
+    </div> --}}
 @endsection
 
 @push('scripts')

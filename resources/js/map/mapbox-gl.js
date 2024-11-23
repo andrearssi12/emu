@@ -4,6 +4,15 @@ import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import * as turf from '@turf/turf';
 
+import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
+import MapboxDraw from "@mapbox/mapbox-gl-draw";
+
+import {
+    SnapPolygonMode,
+    SnapModeDrawStyles,
+  } from "mapbox-gl-draw-snap-mode";
+  // or global variable mapboxGlDrawSnapMode when using script tag
+
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -15,6 +24,9 @@ const map = new mapboxgl.Map({
 });
 
 window.map = map;
+window.mapboxgl = mapboxgl;
+
+window.turf = turf;
 
 const coordinatesGeocoder = function(query) {
     const matches = query.match(
@@ -61,9 +73,41 @@ const coordinatesGeocoder = function(query) {
     return geocodes;
 };
 
-window.mapboxgl = mapboxgl;
 window.MapboxGeocoder = MapboxGeocoder;
 window.coordinatesGeocoder = coordinatesGeocoder;
-window.turf = turf;
+
+const draw = new MapboxDraw({
+    modes: {
+      ...MapboxDraw.modes,
+      draw_polygon: SnapPolygonMode,
+    },
+    // Styling guides
+    styles: SnapModeDrawStyles,
+    userProperties: true,
+    // Config snapping features
+    snap: true,
+    snapOptions: {
+      snapPx: 15, // defaults to 15
+      snapToMidPoints: true, // defaults to false
+      snapVertexPriorityDistance: 0.0025, // defaults to 1.25
+    },
+    guides: false,
+  });
+// Event listener untuk mengatur gaya kursor saat fitur dipilih
+map.on('draw.selectionchange', function(e) {
+    if (e.features.length > 0) {
+        map.getCanvas().style.cursor = 'pointer'; // Atur kursor menjadi pointer saat fitur dipilih
+    } else {
+        map.getCanvas().style.cursor =
+        ''; // Atur kursor menjadi default saat tidak ada fitur yang dipilih
+    }
+});
+
+draw.changeMode("draw_polygon");
+
+
+window.draw = draw;
+
+
 
 
