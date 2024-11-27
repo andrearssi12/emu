@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @push('vite')
-    @vite(['resources/js/map/mapbox-gl.js', 'resources/js/map/mapbox-gl-draw.js'])
+    @vite(['resources/js/map/map.js'])
 @endpush
 
 @section('content')
@@ -95,7 +95,7 @@
 @endsection
 
 @push('scripts')
-    <script type="module">
+    {{-- <script type="module">
         const geoCoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
             localGeocoder: coordinatesGeocoder,
@@ -191,5 +191,5 @@
         map.on('draw.create', saveToSession);
         map.on('draw.update', saveToSession);
         map.on('draw.delete', saveToSession);
-    </script>
+    </script> --}}
 @endpush

@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/js/datatables/datatables.js',
                 'resources/js/map/mapbox-gl.js',
                 'resources/js/map/mapbox-gl-draw.js',
+                'resources/js/map/map.js',
             ],
             refresh: true,
         }),

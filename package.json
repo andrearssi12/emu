@@ -25,6 +25,7 @@
         "datatables.net-dt": "^2.1.6",
         "datatables.net-responsive-dt": "^3.0.3",
         "mapbox-gl-draw-snap-mode": "^0.2.1",
+        "mapbox-gl-snap": "^1.1.7",
         "tailwindcss-important": "^1.0.0",
         "tw-bootstrap-grid-optimizer": "^1.0.2"
     }
